@@ -15,7 +15,10 @@ reasult();
 int new1();
 level();
 int menu();
-int score,hh,a,qq,sc,sd,co,vv,p,x,y,v,dw=1,jk,u,q,f,r,s,t,c,m,l,z,w,b,d=1,zz,tt,lv=1,rn,aa,bb,cc,dd,g=1;
+void splash();
+void cursor();
+void heighest();
+int score,coco=1,ppp,mnc=0,hh,a,qq,my=1,sc,temp,sd,length=0,co,vv,p,x,y,v,dw=1,jk,u,q,f,r,s,t,c,m,l,z,w,b,d=1,zz,tt,lv=1,rn,aa,bb,cc,dd,g=1;
 
 int main()
 {
@@ -26,6 +29,7 @@ int main()
 	char a[]="\n\n\n\n\n PRATIK KUMAR \n\n\t\t\t PRESENTS \n\n\t\t\t\t\t\t\SNAKE 2011";
 	for(n=0;a[n]!='\0';n++)
 	{
+	cursor();
 	printf("%c",a[n]);
 	delay(100);
 	nosound();
@@ -46,9 +50,6 @@ int main()
  getch();
  cleardevice();
  printf("DO YOU WANT TO ENABLE SOUND?????\n\n \t\t\t\tY \t\t\t\t\ N");
-
-
-
  z=getch();
  cleardevice();
  if(z=='y')
@@ -91,10 +92,14 @@ else if(sc==5)
 
  getch();
  cleardevice();
+ splash();
  new2:
  l=0,t=0;
  p=2,q=2,r=45,s=2;
+ setcolor(RED);
  line(p,q,r,s);
+ line(p,q+1,r,s+1);
+ circle(r,s,2);
  line(400,2,400,400);
  line(2,400,400,400);
  gotoxy(55,6);
@@ -106,7 +111,10 @@ else if(sc==5)
 
 	if(bioskey (1))
 	{
+	if(p==r||q==s)
+	{
 	 c=bioskey(0);
+	     }
 	     }
 
  if(c==ESC)
@@ -156,10 +164,18 @@ getch();
 
       setcolor(BLACK);
       line(p,q,r,s);
-
+      circle(r,s,2);
+      circle(r,s,1);
+	if(p==r)
+	line(p+1,q,r+1,s);
+	else if(q==s)
+	line(p,q+1,r,s+1);
 	switch (c)
 	{
 		case RIGHT :
+		{
+		heighest();
+		if(temp!=LEFT)
 		{
 		g=1;
 		dw=1;
@@ -217,15 +233,19 @@ getch();
 	 printf(" SCORE |- %d",score);
 	 gotoxy(55,4);
 	 printf(" ETEN  |- %d",a);
-	 gotoxy(55,15);
+	 menu();
+
 	      }
 
 
+	      }
 
 		}
 	 break;
 
 		case DOWN:
+		{
+		if(temp!=UP)
 		{
 		g=0;
 		t=0;
@@ -277,16 +297,20 @@ getch();
 	 gotoxy(55,4);
 	 printf(" ETEN  |- %d",a);
 	 gotoxy(55,15);
+	 menu();
 	      }
 
 
 
+	      }
 		}
 
 
     break;
 
 		case LEFT:
+		{
+		if(temp!=RIGHT)
 		{
 		dw=0;
 		g=0;
@@ -338,8 +362,10 @@ getch();
 	      gotoxy(55,4);
 	      printf(" ETEN  |- %d",a);
 	      gotoxy(55,15);
+	      menu();
 	      }
 
+	      }
 
 	       }
 
@@ -347,7 +373,10 @@ getch();
 
 	 case UP:
 	 {
+	 if(temp!=DOWN)
+	 {
 		t=1;
+
 		jk=1;
 		if(r<400&&s<400&&s>0)
 		{
@@ -398,25 +427,37 @@ getch();
 	 gotoxy(55,4);
 	 printf(" ETEN  |- %d",a);
 	 gotoxy(55,15);
+	 menu();
 	 }
 	 t=1;
 	 }
+
+	 }
 	 break;
 	}
-	setcolor(WHITE);
+
+	setcolor(GREEN);
 	if(z=='y')
 	{
-	sound(m);
+       //	sound(0);
 	delay(10);
 	nosound();
 	}
+
+	temp=c;
 	line(p,q,r,s);
+	circle(r,s,2);
+
+	if(p==r)
+	line(p+1,q,r+1,s );
+	else if(q==s)
+	line(p,q+1,r,s+1);
 	gotoxy(55,9);
 	printf("NOW YOU ARE AT");
 	gotoxy(55,10);
-	printf("%d    ",p);
+	printf("%d    ",r);
 	gotoxy(55,11);
-	printf("%d    ",q);
+	printf("%d    ",s);
 	gotoxy(55,12);
 	printf("YOU HAVE TO GO AT");
 	gotoxy(55,13);
@@ -425,6 +466,20 @@ getch();
 	printf("%d    ",y);
 	gotoxy(55,15);
 	printf("KEEP GOING...");
+	coco++;
+	if(my==12)
+	my=1;
+	if(coco==6)
+	{
+	my++;
+	coco=1;
+	}
+	setcolor(RED);
+	circle(x,y,2);
+	line(400,2,400,400);
+	line(2,400,400,400);
+	setcolor(my);
+	circle(x,y,1);
 	if(p==r)
 	{
 	u=s-q;
@@ -436,9 +491,9 @@ getch();
 	w=x-u;
 	b=y-u;
 	gotoxy(55,16);
-	printf("MAKE TERN OF X %d   ",w);
+	printf("MAKE TERN OF X %d   ",r);
 	gotoxy(55,17);
-	printf("MAKE TERN OF Y AT %d   ",b);
+	printf("MAKE TERN OF Y AT %d   ",s);
 	gotoxy(55,19);
 	setcolor(RED);
 	printf("MOVE FORWARD ONLY ");
@@ -447,14 +502,47 @@ getch();
 	printf("DONT HIT THE BOUNDRYYY");
 	gotoxy(55,6);
 	printf("LEVEL         |- %d ",lv);
-	if((x==r)&&(y==s))
+       if(((x>=r-2)&&(x<=r+2))&&((y>=s-2)&&(y<=s+2)))
 	{
 	d++;
+	length=1;
+	setcolor(BLACK);
+	circle(x,y,2);
+	circle(r,s,2);
+	sound(5000);
+	delay(10);
+	nosound();
 	new1();
 	}
-	if(d==2)
+	if((length==1))
+	{
+
+       if(p==r&&c==UP)
+       {
+       q=q+10;
+       length=0;
+       }
+       else if(p==r&&c==DOWN)
+      {
+      q=q-10;
+      length=0;
+      }
+       else if(q==s&&c==LEFT)
+      {
+      p=p+10;
+      length=0;
+      }
+      else if(q==s&&c==RIGHT)
+
+      {
+      p=p-10;
+      length=0;
+      }
+ }
+	if(d==6)
 	{
 	d=1;
+       splash();
 	level();
 	}
 	if(lv==2)
@@ -495,7 +583,7 @@ getch();
  cleardevice();
  gotoxy(15,20);
  printf("CONGRATOLATION!!!!!!!!!");
-  gotoxy(15,21);
+ gotoxy(15,21);
  printf("!!!!!!!!--YOU WON--!!!!!!!!!");
  }
  if(lv==1)
@@ -510,6 +598,7 @@ getch();
 
 
 
+
  }
  goto back;
 
@@ -521,10 +610,12 @@ getch();
 
      print()
 	{
-	   setcolor(WHITE);
+	   setcolor(RED);
 	   randomize();
-	   x=random(400);
-	   y=random(400);
+	   x=random(370);
+	   y=random(370);
+	   circle(x,y,2);
+	   setcolor(WHITE);
 	   circle(x,y,1);
 	   return(0);
 	}
@@ -542,7 +633,7 @@ getch();
 	gotoxy(55,24);
 	 printf("I WILL SORTOUT THE ");
 	gotoxy(55,25);
-	printf("PROBKEMS VERY SOON");
+	printf("length =%d %d" ,r-p,s-q);
 	getch();
 	return(0);
 	}
@@ -550,7 +641,9 @@ getch();
        {
        a++;
        setcolor(BLACK);
+       circle(x,y,2);
        circle(x,y,1);
+       circle(r,s,2);
        print();
        reasult();
        return(0);
@@ -558,6 +651,7 @@ getch();
 
 level()
 {
+setcolor(YELLOW);
 lv++;
 if(lv==2)
 {
@@ -575,7 +669,7 @@ else if(lv==3)
 {
 setcolor(BLACK);
 line(zz,tt,zz,tt+90);
-setcolor(WHITE);
+setcolor(YELLOW);
 aa=100;
 bb=50 ;
 cc=200;
@@ -637,7 +731,53 @@ gotoxy(25,21);
 printf("6.QUIT");
 gotoxy(21,22);
 xq=getch();
+xq=getch();
+if(xq==27)
+exit(0);
 return (xq);
 }
 
+void splash()
+{
+int i,j,x,y,ppp;
+y=getmaxy();
+x=getmaxx();
+mnc=mnc+1;
+for(i=1,j=y;i<=y/2,j>y/2;i=i+3,j=j-3)
+{
+setcolor(i);
+line(1,i,x,i);
+line(1,j,x,j);
+delay(40);
+}
+gotoxy(25,16);
+printf("LEVEL         |- %d ",mnc);
+delay(800);
+cleardevice();
+ppp=1;
+gotoxy(55,6);
+printf("LEVEL         |- %d ",mnc);
+       line(400,110,700,110);
+       gotoxy(55,2);
+	 printf(" SCORE |- %d",score);
+	 gotoxy(55,4);
+	 printf(" ETEN  |- %d",a);
+}
 
+		     void cursor()
+	{
+	_setcursortype(_NOCURSOR);
+
+}
+void heighest()
+{
+FILE *fp;
+int hg=0;
+fp=fopen("snakescore.txt","w+r");
+fscanf(fp,"%d",&hg);
+if(hg<score)
+{
+rewind(fp);
+fprintf(fp,"%d",score);
+}
+}
